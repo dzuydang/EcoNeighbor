@@ -20,4 +20,4 @@ cd backend
 npm install
 ```
 
-# 2) Create a .env file
+### 2) Create a .env file
