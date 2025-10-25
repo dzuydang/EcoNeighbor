@@ -3,6 +3,15 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path"
+import {fileURLToPath} from "url";
+
+import alertRoutes from "./routes/alertRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
+import dataRoutes from "./routes/dataRoutes.js";
+import reportingRoutes from "./routes/reportingRoutes.js";
+import {query} from "./config/db.js";
 
 dotenv.config();
 
@@ -16,10 +25,26 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/test", (req, res) => {
-    res.send("Hello");
-});
+app.use("/alert", alertRoutes);
+app.use("/comment", commentRoutes);
+app.use("/data", dataRoutes);
+app.use("/reporting", reportingRoutes);
 
-app.listen(PORT, () => {
-    console.log("Server is Running on " + PORT);
+const fullfilename = fileURLToPath(import.meta.url);
+const fulldirname = path.dirname(fullfilename);
+
+async function initDB() {
+    try{
+        const sqlPath = path.join(fulldirname, "sql", "createTables.sql");
+        const sql = fs.readFileSync(sqlPath, "utf-8"); 
+        await query(sql);
+    } catch (error) {
+        console.log("Error in initializaing Database in index.js", error);
+    }
+}
+
+initDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("Server is Running on " + PORT);
+    });
 });
