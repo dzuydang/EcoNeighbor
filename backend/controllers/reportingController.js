@@ -2,24 +2,52 @@ import { query } from "../config/db.js";
 
 export const createReport = async (req, res) => {
   try {
-    const { author, content } = req.body;
+    const {
+      user_id,
+      title,
+      description,
+      photo_url,
+      latitude,
+      longitude,
+      is_verified,
+      forwarded_to_authority,
+    } = req.body;
 
-    if (!author || !content) {
+    if (
+      !user_id ||
+      !title ||
+      !description ||
+      !photo_url ||
+      latitude === undefined ||
+      longitude === undefined
+    ) {
       return res
         .status(400)
-        .json({ error: "author or content cannot be empty" });
+        .json({
+          error:
+            "user_id, title, description, photo_url, latitude, longitude cannot be empty",
+        });
     }
 
     const result = await query(
-      `INSERT INTO reports (author, content)
-            VALUES ($1, $2)
+      `INSERT INTO reports (user_id, title, description, photo_url, latitude, longitude, is_verified, forwarded_to_authority)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *`,
-      [author, content]
+      [
+        user_id,
+        title,
+        description,
+        photo_url,
+        latitude,
+        longitude,
+        is_verified,
+        forwarded_to_authority,
+      ]
     );
 
     res.status(201).json(result.rows[0]);
   } catch (error) {
-    const error_resp = "Error reportingController creating a report:";
+    const error_resp = `Error reportingController creating a report: ${error}`;
     console.error(error_resp, error);
     res.status(500).json({ error: error_resp });
   }
@@ -32,7 +60,7 @@ export const getAllReportsDesc = async (req, res) => {
     );
     res.status(200).json(result.rows);
   } catch (error) {
-    const error_resp = "Error reportingController getting all reports:";
+    const error_resp = `Error reportingController getting all reports: ${error}`;
     console.error(error_resp, error);
     res.status(500).json({ error: error_resp });
   }
@@ -41,15 +69,16 @@ export const getAllReportsDesc = async (req, res) => {
 export const getReport = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
-    const result = await query("SELECT * FROM reports WHERE id = $1", [id]);
+    const result = await query("SELECT * FROM reports WHERE report_id = $1", [
+      id,
+    ]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "No Report with that id" });
     }
-    res.status(200).json(result.rows);
+    res.status(200).json(result.rows[0]);
   } catch (error) {
-    const error_resp = "Error reportingController getting report:";
+    const error_resp = `Error reportingController getting report: ${error}`;
     console.error(error_resp, error);
     res.status(500).json({ error: error_resp });
   }
@@ -58,30 +87,62 @@ export const getReport = async (req, res) => {
 export const updateReport = async (req, res) => {
   try {
     const { id } = req.params;
-    const { author, content } = req.body;
+    const {
+      title,
+      description,
+      photo_url,
+      latitude,
+      longitude,
+      is_verified,
+      forwarded_to_authority,
+    } = req.body;
 
-    if (!author || !content) {
+    if (
+      !title ||
+      !description ||
+      !photo_url ||
+      latitude === undefined ||
+      longitude === undefined
+    ) {
       return res
         .status(400)
-        .json({ error: "author or content cannot be empty" });
+        .json({
+          error:
+            "title, description, photo_url, latitude, longitude cannot be empty",
+        });
     }
 
     const result = await query(
       `
             UPDATE reports
-            SET author = $1,
-                content = $2
-            WHERE id = $3
-            RETURNING *`,
-      [author, content, id]
+            SET title = $1,
+            description = $2,
+            photo_url = $3,
+            latitude = $4,
+            longitude = $5,
+            is_verified = $6,
+            forwarded_to_authority = $7
+            WHERE report_id = $8 
+            RETURNING *;
+            `,
+      [
+        title,
+        description,
+        photo_url,
+        latitude,
+        longitude,
+        is_verified,
+        forwarded_to_authority,
+        id,
+      ]
     );
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "No Report with that id" });
     }
-    res.status(200).json(result.rows);
+    res.status(200).json(result.rows[0]);
   } catch (error) {
-    const error_resp = "Error reportingController updating report:";
+    const error_resp = `Error reportingController updating report: ${error}`;
     console.error(error_resp, error);
     res.status(500).json({ error: error_resp });
   }
@@ -91,7 +152,7 @@ export const deleteReport = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await query(
-      "DELETE FROM reports WHERE id = $1 RETURNING *",
+      "DELETE FROM reports WHERE report_id = $1 RETURNING *",
       [id]
     );
 
@@ -101,7 +162,7 @@ export const deleteReport = async (req, res) => {
 
     res.status(200).json("Report deleted successfully");
   } catch (error) {
-    const error_resp = "Error reportingController deleting report:";
+    const error_resp = `Error reportingController deleting report: ${error}`;
     console.error(error_resp, error);
     res.status(500).json({ error: error_resp });
   }
