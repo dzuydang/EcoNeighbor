@@ -22,7 +22,7 @@ export const createReport = async (req, res) => {
     ) {
       return res.status(400).json({
         error:
-          "user_id, title, description, photo_url, latitude, longitude cannot be empty",
+          "user_id, title, description, latitude, longitude cannot be empty",
       });
     }
 
@@ -102,7 +102,7 @@ export const updateReport = async (req, res) => {
     ) {
       return res.status(400).json({
         error:
-          "title, description, photo_url, latitude, longitude cannot be empty",
+          "title, description, latitude, longitude cannot be empty",
       });
     }
 
