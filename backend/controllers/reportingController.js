@@ -17,16 +17,13 @@ export const createReport = async (req, res) => {
       !user_id ||
       !title ||
       !description ||
-      !photo_url ||
       latitude === undefined ||
       longitude === undefined
     ) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "user_id, title, description, photo_url, latitude, longitude cannot be empty",
-        });
+      return res.status(400).json({
+        error:
+          "user_id, title, description, photo_url, latitude, longitude cannot be empty",
+      });
     }
 
     const result = await query(
@@ -100,16 +97,13 @@ export const updateReport = async (req, res) => {
     if (
       !title ||
       !description ||
-      !photo_url ||
       latitude === undefined ||
       longitude === undefined
     ) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "title, description, photo_url, latitude, longitude cannot be empty",
-        });
+      return res.status(400).json({
+        error:
+          "title, description, photo_url, latitude, longitude cannot be empty",
+      });
     }
 
     const result = await query(
