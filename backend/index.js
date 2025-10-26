@@ -20,7 +20,7 @@ const app = express();
 // Middleware 
 app.use(helmet()); // used for security to protect app by setting various HTTP headers
 app.use(cors()); // manage cross-origin requests
-app.use(morgan("dev")); //logs requets to console
+app.use(morgan("dev")); //logs requests to console
 app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
