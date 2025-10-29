@@ -28,26 +28,11 @@ CREATE TABLE IF NOT EXISTS reports (
 );
 
 -- =========================================
--- ALERTS (Feature 3)
--- =========================================
-CREATE TABLE IF NOT EXISTS alerts (
-    alert_id SERIAL PRIMARY KEY,
-    title VARCHAR(100) NOT NULL,
-    description TEXT,
-    severity VARCHAR(20),  -- e.g., Low, Medium, High, Critical
-    category VARCHAR(50),  -- e.g., Air, Water, Waste, Fire
-    latitude DECIMAL(9,6),
-    longitude DECIMAL(9,6),
-    issued_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    verified BOOLEAN DEFAULT FALSE
-);
-
--- =========================================
 -- RECOMMENDATIONS (Feature 4)
 -- =========================================
 CREATE TABLE IF NOT EXISTS recommendations (
     rec_id SERIAL PRIMARY KEY,
-    alert_id INT REFERENCES alerts(alert_id) ON DELETE CASCADE,
+    report_id INT REFERENCES reports(report_id) ON DELETE CASCADE,
     title VARCHAR(100),
     advice TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
