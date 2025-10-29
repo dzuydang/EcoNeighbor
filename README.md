@@ -21,3 +21,14 @@ npm install
 ```
 
 ### 2) Create a .env file
+```bash
+# Backend port:
+PORT=3000
+
+# Database information
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=EcoNeighbordb
+PGUSER=postgres
+PGPASSWORD=your_password
+```
