@@ -4,7 +4,7 @@ export async function reportIssue(req, res) {
   const { name, email, issue } = req.body;
 
   if (!name || !email || !issue) {
-    return res.status(400).json({ message: "Missing required fields" });
+    return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Missing required fields" });
   }
 
   try {
@@ -16,8 +16,8 @@ export async function reportIssue(req, res) {
       `From: ${name} (${email})\n\nIssue:\n${issue}`
     );
 
-    res.status(200).json({ message: "Issue reported successfully" });
+    res.status(HTTP_STATUS.OK).json({ message: "Issue reported successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Error sending issue report", error });
+    res.status(HTTP_STATUS.INTERNAL_ERROR).json({ message: "Error sending issue report", error });
   }
 }

@@ -3,6 +3,6 @@ import { reportIssue } from "../controllers/mailController.js";
 
 const router = express.Router();
 
-router.post("/report-issue", reportIssue);
+router.post("/", reportIssue);
 
 export default router;

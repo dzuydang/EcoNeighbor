@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- =========================================
--- COMMUNITY REPORTS (Feature 1)
+-- COMMUNITY REPORTS + ALERTS (Feature 1 + 3)
 -- =========================================
 CREATE TABLE IF NOT EXISTS reports (
     report_id SERIAL PRIMARY KEY,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS recommendations (
 CREATE TABLE IF NOT EXISTS waste_centers (
     center_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    address VARCHAR(200),
+    address VARCHAR(HTTP_STATUS.OK),
     material_types TEXT,   -- e.g. "Plastic, Paper, Glass"
     contact_info VARCHAR(100),
     latitude DECIMAL(9,6),
