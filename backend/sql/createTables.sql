@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS recommendations (
 CREATE TABLE IF NOT EXISTS waste_centers (
     center_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    address VARCHAR(HTTP_STATUS.OK),
+    address VARCHAR(200),
     material_types TEXT,   -- e.g. "Plastic, Paper, Glass"
     contact_info VARCHAR(100),
     latitude DECIMAL(9,6),
