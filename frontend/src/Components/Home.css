@@ -1,0 +1,56 @@
+/* Home.css */
+.home-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../assets/background.jpg');
+    /* adjust path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.home-blurb {
+    margin-top: 30vh;
+    /* pushes it 30% down from the top of the viewport */
+    text-align: left;
+    color: white;
+    /* optional */
+    margin-left: 5%;
+}
+
+.first-lines {
+    line-height: 1.1;
+    /* controls space between stacked lines (1.0–1.2 is tight) */
+}
+
+.first-lines h1 {
+    margin: 0;
+    /* removes default top/bottom spacing around h1 elements */
+}
+
+.about-blurb {
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.get-started button {
+    background-color: #1379c2;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.get-started button:hover {
+    background-color: #45a049;
+}
