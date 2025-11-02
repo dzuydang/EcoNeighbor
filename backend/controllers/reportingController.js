@@ -2,44 +2,25 @@ import { query } from "../config/db.js";
 import { HTTP_STATUS } from "../constants.js";
 export const createReport = async (req, res) => {
   try {
-    const {
-      user_id,
-      title,
-      description,
-      photo_url,
-      latitude,
-      longitude,
-      is_verified,
-      forwarded_to_authority,
-    } = req.body;
+    const { user_id, title, description, photo_url, latitude, longitude } =
+      req.body;
 
     if (
       !user_id ||
       !title ||
-      !description ||
       latitude === undefined ||
       longitude === undefined
     ) {
       return res.status(HTTP_STATUS.BAD_REQUEST).json({
-        error:
-          "user_id, title, description, latitude, longitude cannot be empty",
+        error: "user_id, title, latitude, longitude cannot be empty",
       });
     }
 
     const result = await query(
-      `INSERT INTO reports (user_id, title, description, photo_url, latitude, longitude, is_verified, forwarded_to_authority)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING *`,
-      [
-        user_id,
-        title,
-        description,
-        photo_url,
-        latitude,
-        longitude,
-        is_verified,
-        forwarded_to_authority,
-      ]
+      `INSERT INTO reports (user_id, title, description, photo_url, latitude, longitude)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING *`,
+      [user_id, title, description, photo_url, latitude, longitude]
     );
 
     res.status(HTTP_STATUS.CREATED).json(result.rows[0]);
@@ -71,7 +52,9 @@ export const getReport = async (req, res) => {
     ]);
 
     if (result.rows.length === 0) {
-      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "No Report with that id" });
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ error: "No Report with that id" });
     }
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -84,54 +67,31 @@ export const getReport = async (req, res) => {
 export const updateReport = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      title,
-      description,
-      photo_url,
-      latitude,
-      longitude,
-      is_verified,
-      forwarded_to_authority,
-    } = req.body;
+    const { title, description, photo_url, latitude, longitude } = req.body;
 
-    if (
-      !title ||
-      !description ||
-      latitude === undefined ||
-      longitude === undefined
-    ) {
+    if (id === undefined) {
       return res.status(HTTP_STATUS.BAD_REQUEST).json({
-        error: "title, description, latitude, longitude cannot be empty",
+        error: "report_id param cannot be empty",
       });
     }
 
     const result = await query(
-      `
-            UPDATE reports
-            SET title = $1,
-            description = $2,
-            photo_url = $3,
-            latitude = $4,
-            longitude = $5,
-            is_verified = $6,
-            forwarded_to_authority = $7
-            WHERE report_id = $8 
-            RETURNING *;
-            `,
-      [
-        title,
-        description,
-        photo_url,
-        latitude,
-        longitude,
-        is_verified,
-        forwarded_to_authority,
-        id,
-      ]
+      ` UPDATE reports
+        SET title = COALESCE($1, title),
+        description = COALESCE($2, description),
+        photo_url = COALESCE($3, photo_url),
+        latitude = COALESCE($4, latitude),
+        longitude = COALESCE($5, longitude)
+        WHERE report_id = $6
+        RETURNING *;
+        `,
+      [title, description, photo_url, latitude, longitude, id]
     );
 
     if (result.rows.length === 0) {
-      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "No Report with that id" });
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ error: "No Report with that id" });
     }
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -150,7 +110,9 @@ export const deleteReport = async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "No Report with that id" });
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ error: "No Report with that id" });
     }
 
     res.status(HTTP_STATUS.OK).json("Report deleted successfully");
