@@ -1,3 +1,5 @@
+-- AI was used to create example data, which will be used for testing purposes 
+
 INSERT INTO users (full_name, email, password_hash, role, location)
 VALUES
 ('Alice Johnson', 'alice@example.com', 'hashedpassword1', 'resident', 'Maple Street, Springfield'),

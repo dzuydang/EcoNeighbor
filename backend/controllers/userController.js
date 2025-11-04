@@ -129,7 +129,12 @@ export const updateUser = async (req, res) => {
     }
 
     const result = await query(
-      `UPDATE users SET full_name = COALESCE($2, full_name), location = COALESCE($3, location), role = COALESCE($4, role) WHERE user_id = $1 RETURNING user_id, full_name, email, role, location, created_at;`,
+      `UPDATE users 
+      SET full_name = COALESCE($2, full_name), 
+      location = COALESCE($3, location), 
+      role = COALESCE($4, role) 
+      WHERE user_id = $1 
+      RETURNING user_id, full_name, email, role, location, created_at;`,
       [id, full_name, location, role]
     );
 

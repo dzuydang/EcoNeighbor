@@ -12,7 +12,6 @@ import commentRoutes from "./routes/commentRoutes.js";
 import dataRoutes from "./routes/dataRoutes.js";
 import reportingRoutes from "./routes/reportingRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import mailRoutes from "./routes/mailRoutes.js";
 import { query } from "./config/db.js";
 
 dotenv.config();
@@ -32,7 +31,6 @@ app.use("/comment", commentRoutes);
 app.use("/data", dataRoutes);
 app.use("/reporting", reportingRoutes);
 app.use("/user", userRoutes);
-app.use("/mail", mailRoutes);
 
 const fullfilename = fileURLToPath(import.meta.url);
 const fulldirname = path.dirname(fullfilename);
