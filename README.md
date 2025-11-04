@@ -31,4 +31,9 @@ PGPORT=5432
 PGDATABASE=EcoNeighbordb
 PGUSER=postgres
 PGPASSWORD=your_password
+
+# Nodemailer information
+EMAILUSER="your_email"
+EMAILPASS="your_email_password" 
+GOVEMAIL="gov_email"
 ```
