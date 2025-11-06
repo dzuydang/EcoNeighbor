@@ -1,6 +1,7 @@
 import { query } from "../config/db.js";
 import bcrypt from "bcrypt";
 import { HTTP_STATUS, PASSWORD_SALT_ROUNDS, ROLES } from "../constants.js";
+import jwt from "jsonwebtoken";
 
 export const createUser = async (req, res) => {
   try {
@@ -52,7 +53,7 @@ export const getAllUsersDesc = async (req, res) => {
 
 export const getUserbyID = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.user.id; // accessing user id based on decoded jwt token
     const result = await query(
       "SELECT user_id, full_name, email, role, location, created_at FROM users WHERE user_id = $1;",
       [id]
@@ -98,6 +99,19 @@ export const userLogin = async (req, res) => {
     // deleting sensitive information before returning
     delete user.password_hash;
 
+    const token = jwt.sign(
+      { id: user.user_id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
     res.status(HTTP_STATUS.OK).json({
       message: "Login Successful",
       user,
@@ -107,6 +121,15 @@ export const userLogin = async (req, res) => {
     console.error(error_resp, error);
     res.status(HTTP_STATUS.INTERNAL_ERROR).json({ error: error_resp });
   }
+};
+
+export const userLogout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 };
 
 export const updateUser = async (req, res) => {

@@ -2,8 +2,8 @@ import { query } from "../config/db.js";
 import { HTTP_STATUS } from "../constants.js";
 export const createReport = async (req, res) => {
   try {
-    const { user_id, title, description, photo_url, latitude, longitude } =
-      req.body;
+    const { title, description, photo_url, latitude, longitude } = req.body;
+    const { user_id } = req.user.id; // gets user_id from decoded jwt token
 
     if (
       !user_id ||

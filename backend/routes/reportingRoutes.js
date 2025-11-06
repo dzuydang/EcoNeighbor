@@ -6,13 +6,14 @@ import {
   deleteReport,
   updateReport,
 } from "../controllers/reportingController.js";
+import { verifyToken, requireRole } from "../utils/verify.js";
 
 const router = express.Router();
 
-router.get("/", getAllReportsDesc);
-router.get("/:id", getReport);
-router.post("/", createReport);
-router.put("/:id", updateReport);
-router.delete("/:id", deleteReport);
+router.get("/", verifyToken, getAllReportsDesc);
+router.get("/:id", verifyToken, getReport);
+router.post("/", verifyToken, createReport);
+router.put("/:id", verifyToken, updateReport);
+router.delete("/:id", verifyToken, deleteReport);
 
 export default router;

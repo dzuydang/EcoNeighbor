@@ -3,10 +3,11 @@ import {
   getAllAlertsDesc,
   verifyReport,
 } from "../controllers/alertController.js";
+import { verifyToken, requireRole } from "../utils/verify.js";
 
 const router = express.Router();
 
-router.get("/", getAllAlertsDesc);
-router.put("/:id", verifyReport);
+router.get("/", verifyToken, getAllAlertsDesc);
+router.put("/:id", verifyToken, requireRole("admin"), verifyReport);
 
 export default router;
