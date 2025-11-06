@@ -4,6 +4,7 @@ import {
   getAllUsersDesc,
   getUserbyID,
   userLogin,
+  userLogout,
   deleteUser,
   updateUser,
 } from "../controllers/userController.js";
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/", verifyToken, requireRole("admin"), getAllUsersDesc);
 router.get("/:id", verifyToken, getUserbyID);
 router.post("/login", userLogin);
+router.post("/logout", userLogout);
 router.post("/", createUser);
 router.put("/:id", verifyToken, requireRole("admin"), updateUser);
 router.delete("/:id", verifyToken, requireRole("admin"), deleteUser);
