@@ -36,4 +36,8 @@ PGPASSWORD=your_password
 EMAILUSER="your_email"
 EMAILPASS="your_email_password" 
 GOVEMAIL="gov_email"
+
+# cookies and jwt
+NODE_ENV="development"
+JWT_SECRET=your_secret
 ```
