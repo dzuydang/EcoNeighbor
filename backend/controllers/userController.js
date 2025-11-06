@@ -112,13 +112,9 @@ export const userLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    // for testing
-    console.log(res.json({ message: "Login Successful", user, token }));
-
     res.status(HTTP_STATUS.OK).json({
       message: "Login Successful",
       user,
-      token,
     });
   } catch (error) {
     const error_resp = `Error userController logging in: ${error}`;
