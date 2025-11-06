@@ -1,0 +1,78 @@
+/* Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    /* keeps it at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fefefe;
+    /* solid color so background image doesn’t show through */
+    color: white;
+    z-index: 10;
+    /* keeps it above everything else */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    /* optional depth effect */
+    padding: 0.75rem 1.5rem;
+}
+
+.nav-logo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+}
+
+.nav-links a {
+    position: relative;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #1379c2;
+}
+
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #1379c2;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.log-in button {
+    background-color: #1379c2;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.log-in button:hover {
+    background-color: #45a049;
+}
