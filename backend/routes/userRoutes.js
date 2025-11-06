@@ -7,14 +7,15 @@ import {
   deleteUser,
   updateUser,
 } from "../controllers/userController.js";
+import { verifyToken, requireRole } from "../utils/verify.js";
 
 const router = express.Router();
 
-router.get("/", getAllUsersDesc);
-router.get("/:id", getUserbyID);
+router.get("/", verifyToken, requireRole("admin"), getAllUsersDesc);
+router.get("/:id", verifyToken, getUserbyID);
 router.post("/login", userLogin);
 router.post("/", createUser);
-router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.put("/:id", verifyToken, requireRole("admin"), updateUser);
+router.delete("/:id", verifyToken, requireRole("admin"), deleteUser);
 
 export default router;

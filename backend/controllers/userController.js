@@ -98,6 +98,19 @@ export const userLogin = async (req, res) => {
     // deleting sensitive information before returning
     delete user.password_hash;
 
+    const token = jwt.sign(
+      { id: user.user_id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
     res.status(HTTP_STATUS.OK).json({
       message: "Login Successful",
       user,

@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import cookieParser from "cookie-parser";
 
 import alertRoutes from "./routes/alertRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
@@ -20,7 +21,12 @@ const app = express();
 
 // Middleware
 app.use(helmet()); // used for security to protect app by setting various HTTP headers
-app.use(cors()); // manage cross-origin requests
+app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true
+  })
+); // manage cross-origin requests
 app.use(morgan("dev")); //logs requests to console
 app.use(express.json());
 
