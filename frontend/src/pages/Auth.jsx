@@ -32,11 +32,11 @@ export default function AuthPage() {
       if (mode === "login") {
         const res = await login({ email, password });
         setServerMsg(res.message || "Logged In!");
-        nav("/dashboard, { replace: true });");
+        nav("/", { replace: true });
       } else {
         await signUp({ fullName, location, role, email, password });
         await login({ email, password });
-        nav("/dashboard", { replace: true });
+        nav("/", { replace: true });
       }
     } catch (err) {
       setError(err?.message || "Request failed");
