@@ -1,12 +1,14 @@
 import React from "react";
-import Home from "./components/Home";
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import AuthPage from "./pages/Auth";
 
 function App() {
   return (
-    <div className="App">
-      <Home/>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/auth" element={<AuthPage />} />
+    </Routes>
   );
 }
 
