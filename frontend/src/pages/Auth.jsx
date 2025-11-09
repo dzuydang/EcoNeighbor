@@ -48,7 +48,6 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      Hello
       <div className="max-w-md w-full bg-white shadow-lg rounded-2xl p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-semibold">
@@ -63,7 +62,7 @@ export default function AuthPage() {
               }}
               type="button"
             >
-              {mode === "login" ? "Create an account" : "Have an account? Login"}
+              {mode === "login" ? "Create an account" : "Have an account? Log In"}
             </button>
           </div>
         </div>
@@ -75,13 +74,83 @@ export default function AuthPage() {
           {mode === "signup" && (
             <>
             <div>
-              <label className="block text-sm font-medium text-gray-700"> Full Name</label>
+              <label className="block text-sm font-medium text-gray-700">Full Name</label>
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+                className="mt-1 w-full rounded-md border border-gray-200 shadow-sm p-2"
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Location</label>
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+                className="mt-1 w-full rounded-md border border-gray-200 shadow-sm p-2"
+                placeholder="City, Country"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Role</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="mt-1 w-full rounded-md border-gray-200 shadow-sm p-2"
+              >
+                {ROLE_OPTIONS.map((option) => (
+                  <option 
+                    key={option.value} 
+                    value={option.value}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
             </> 
           )}
+
+          <div>
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="mt-1 w-full rounded-md border border-gray-200 shadow-sm p-2"
+                placeholder="example@example.com"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="mt-1 w-full rounded-md border border-gray-200 shadow-sm p-2"
+                placeholder="**********"
+              />
+            </div>
+            
+            <div className="pt-2">
+              <button
+                className="w-full"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Please wait..." : mode === "login" ? "Login" : "Create Account"}
+              </button>
+            </div>
         </form>
-
-
       </div>
     </div>
   );

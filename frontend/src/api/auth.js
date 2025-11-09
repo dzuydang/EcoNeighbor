@@ -9,7 +9,7 @@ export async function login({ email, password }) {
 }
 
 export async function signup({ full_name, email, password, role, location }) {
-  const response = await client.post("/user/register", {
+  const response = await client.post("/user/", {
     full_name,
     email,
     password,
