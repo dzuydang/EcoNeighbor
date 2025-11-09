@@ -8,7 +8,7 @@ export async function login({ email, password }) {
   return response.data;
 }
 
-export async function signup({ fullName, email, password, role, location }) {
+export async function signUp({ fullName, email, password, role, location }) {
   const response = await client.post("/user/", {
     full_name: fullName,
     email,
@@ -22,6 +22,11 @@ export async function signup({ fullName, email, password, role, location }) {
 export async function logout() {
   const response = await client.post("/user/logout");
   return response.data;
+}
+
+export async function checkLogin() {
+  const response = await client.get("/user/status", { withCredentials: true });
+  return response.status;
 }
 
 // code in the future for getting user information

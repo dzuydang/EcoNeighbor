@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE = 'http://localhost:3000';
+const BASE = import.meta.env.BASE_BACKEND_URL || 'http://localhost:3000';
 
 const client =  axios.create({
   baseURL: BASE,

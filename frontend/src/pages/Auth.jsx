@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, signup } from "../api/auth";
+import { login, signUp } from "../api/auth";
 
 const ROLE_OPTIONS = [
   { value: "admin", label: "Admin" },
@@ -34,7 +34,7 @@ export default function AuthPage() {
         setServerMsg(res.message || "Logged In!");
         nav("/dashboard, { replace: true });");
       } else {
-        await signup({ fullName, location, role, email, password });
+        await signUp({ fullName, location, role, email, password });
         await login({ email, password });
         nav("/dashboard", { replace: true });
       }

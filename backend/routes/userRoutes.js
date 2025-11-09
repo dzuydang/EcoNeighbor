@@ -3,6 +3,7 @@ import {
   createUser,
   getAllUsersDesc,
   getUserbyID,
+  getUserStatus,
   userLogin,
   userLogout,
   deleteUser,
@@ -14,6 +15,7 @@ const router = express.Router();
 
 router.get("/", verifyToken, requireRole("admin"), getAllUsersDesc);
 router.get("/get", verifyToken, getUserbyID);
+router.get("/status", verifyToken, getUserStatus);
 router.post("/login", userLogin);
 router.post("/logout", userLogout);
 router.post("/", createUser);
