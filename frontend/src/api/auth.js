@@ -8,9 +8,9 @@ export async function login({ email, password }) {
   return response.data;
 }
 
-export async function signup({ full_name, email, password, role, location }) {
+export async function signup({ fullName, email, password, role, location }) {
   const response = await client.post("/user/", {
-    full_name,
+    full_name: fullName,
     email,
     password,
     role,

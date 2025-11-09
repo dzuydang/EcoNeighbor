@@ -1,7 +1,10 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const nav = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col bg-[image:var(--background-home)] bg-cover bg-center bg-no-repeat">
       {/* Navbar */}
@@ -21,7 +24,10 @@ const Home = () => {
           </h2>
 
           <div className="mt-8">
-            <button className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full shadow-md transition-transform transform hover:scale-105">
+            <button
+              onClick={() => nav("/auth")}
+              className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-full shadow-md transition-transform transform hover:scale-105"
+            >
               Get Started
             </button>
           </div>
