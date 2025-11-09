@@ -18,9 +18,12 @@ Make sure you have the following installed before starting:
 ```bash
 cd backend
 npm install
+cd ..
+cd frontend
+npm install
 ```
 
-### 2) Create a .env file
+### 2) Create a .env file in the backend folder
 ```bash
 # Backend port:
 PORT=3000
@@ -40,4 +43,9 @@ GOVEMAIL="gov_email"
 # cookies and jwt
 NODE_ENV="development"
 JWT_SECRET=your_secret
+```
+
+### 3) Create a .env file in the frontend folder
+```bash
+BASE_BACKEND_URL="http://localhost:3000"
 ```
