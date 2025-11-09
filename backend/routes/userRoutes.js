@@ -13,7 +13,7 @@ import { verifyToken, requireRole } from "../utils/verify.js";
 const router = express.Router();
 
 router.get("/", verifyToken, requireRole("admin"), getAllUsersDesc);
-router.get("/:id", verifyToken, getUserbyID);
+router.get("/get", verifyToken, getUserbyID);
 router.post("/login", userLogin);
 router.post("/logout", userLogout);
 router.post("/", createUser);
