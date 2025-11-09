@@ -13,6 +13,7 @@ import commentRoutes from "./routes/commentRoutes.js";
 import dataRoutes from "./routes/dataRoutes.js";
 import reportingRoutes from "./routes/reportingRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import healthRoutes from "./routes/healthRoutes.js";
 import { query } from "./config/db.js";
 
 dotenv.config();
@@ -24,7 +25,8 @@ app.use(helmet()); // used for security to protect app by setting various HTTP h
 app.use(cookieParser());
 app.use(
   cors({
-    credentials: true
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 ); // manage cross-origin requests
 app.use(morgan("dev")); //logs requests to console
@@ -37,6 +39,7 @@ app.use("/comment", commentRoutes);
 app.use("/data", dataRoutes);
 app.use("/reporting", reportingRoutes);
 app.use("/user", userRoutes);
+app.use("/health", healthRoutes);
 
 const fullfilename = fileURLToPath(import.meta.url);
 const fulldirname = path.dirname(fullfilename);

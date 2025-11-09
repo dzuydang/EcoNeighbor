@@ -72,6 +72,18 @@ export const getUserbyID = async (req, res) => {
   }
 };
 
+export const getUserStatus = async (req, res) => {
+  try {
+    res.status(HTTP_STATUS.OK).end();
+  } catch (error) {
+    const error_resp = `Error userController getting login status: ${error}`;
+    console.error(error_resp, error);
+    res.status(HTTP_STATUS.INTERNAL_ERROR).json({ error: error_resp });
+  }
+};
+
+
+
 export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;

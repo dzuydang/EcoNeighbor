@@ -3,6 +3,7 @@ import {
   createUser,
   getAllUsersDesc,
   getUserbyID,
+  getUserStatus,
   userLogin,
   userLogout,
   deleteUser,
@@ -13,7 +14,8 @@ import { verifyToken, requireRole } from "../utils/verify.js";
 const router = express.Router();
 
 router.get("/", verifyToken, requireRole("admin"), getAllUsersDesc);
-router.get("/:id", verifyToken, getUserbyID);
+router.get("/get", verifyToken, getUserbyID);
+router.get("/status", verifyToken, getUserStatus);
 router.post("/login", userLogin);
 router.post("/logout", userLogout);
 router.post("/", createUser);
