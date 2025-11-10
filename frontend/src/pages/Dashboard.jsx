@@ -25,7 +25,11 @@ const Dashboard = () => {
 
     verifyLogin();
   }, [nav]);
-  return <div></div>;
+  return (
+    <div className="min-h-screen flex flex-col bg-[image:var(--background-home)] bg-cover bg-center bg-no-repeat">
+      <Navbar />
+    </div>
+  );
 };
 
 export default Dashboard;
