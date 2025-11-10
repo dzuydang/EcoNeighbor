@@ -3,7 +3,7 @@ import { HTTP_STATUS } from "../constants.js";
 export const createReport = async (req, res) => {
   try {
     const { title, description, photo_url, latitude, longitude } = req.body;
-    const { user_id } = req.user.id; // gets user_id from decoded jwt token
+    const { id } = req.user; // gets user_id from decoded jwt token
 
     if (
       !user_id ||
@@ -20,7 +20,7 @@ export const createReport = async (req, res) => {
       `INSERT INTO reports (user_id, title, description, photo_url, latitude, longitude)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [user_id, title, description, photo_url, latitude, longitude]
+      [id, title, description, photo_url, latitude, longitude]
     );
 
     res.status(HTTP_STATUS.CREATED).json(result.rows[0]);

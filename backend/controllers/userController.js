@@ -53,7 +53,7 @@ export const getAllUsersDesc = async (req, res) => {
 
 export const getUserbyID = async (req, res) => {
   try {
-    const { id } = req.user.id; // accessing user id based on decoded jwt token
+    const { id } = req.user; // accessing user id based on decoded jwt token
     const result = await query(
       "SELECT user_id, full_name, email, role, location, created_at FROM users WHERE user_id = $1;",
       [id]

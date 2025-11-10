@@ -29,8 +29,3 @@ export async function checkLogin() {
   return response.status;
 }
 
-// code in the future for getting user information
-// export async function getUserbyId(id) {
-//   const response = await client.get(`/user/${id}`);
-//   return response.data;
-// }

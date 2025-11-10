@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { checkLogin } from "../api/auth";
+import UserInfoCard from "../components/UserInfoCard";
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,14 +34,20 @@ const Home = () => {
       {/* Main content */}
       <div className="flex flex-1 items-center justify-center px-6 py-16">
         <div className="text-center max-w-2xl">
-          <div className="mb-6">
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 leading-tight">
-              Protect your community.
-            </h1>
-          </div>
-          <h2 className="mt-3 text-lg sm:text-xl text-gray-600">
-            Local neighborhood environmental reporting, made simple.
-          </h2>
+          {!isLoggedIn ? (
+            <div className="mb-6">
+              <h1 className="text-4xl font-extrabold text-gray-800 leading-tight">
+                Protect your community.
+              </h1>
+              <h2 className="mt-3 text-lg sm:text-xl text-gray-600">
+                Local neighborhood environmental reporting, made simple.
+              </h2>
+            </div>
+          ) : (
+            <div>
+              <UserInfoCard />
+            </div>
+          )}
           {!isLoggedIn && (
             <div className="mt-8">
               <button
