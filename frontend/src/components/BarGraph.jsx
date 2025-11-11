@@ -11,25 +11,6 @@ import {
 } from "recharts";
 import { getNumAdmin, getNumAuthority, getNumResident } from "../api/data";
 
-// #region Sample data
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    amt: 2290,
-  },
-];
-
 const getBarGraphData = async () => {
   const [resident, authority, admin] = await Promise.all([
     await getNumResident(),
