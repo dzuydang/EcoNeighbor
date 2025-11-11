@@ -16,7 +16,7 @@ export const createUser = async (req, res) => {
     if (!ROLES.includes(role)) {
       return res.status(HTTP_STATUS.BAD_REQUEST).json({
         error: `Invalid role: '${role}'. Allowed roles are ${ROLES.join(
-          ", "
+          ", ",
         )}.`,
       });
     }
@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
       `INSERT INTO users (full_name, email, password_hash, role, location)
         VALUES ($1, $2, $3, COALESCE($4, 'resident'), $5)
         RETURNING user_id, full_name, email, role, location, created_at;`,
-      [full_name, email, password_hash, role, location]
+      [full_name, email, password_hash, role, location],
     );
 
     res.status(HTTP_STATUS.CREATED).json(result.rows[0]);
@@ -41,7 +41,7 @@ export const createUser = async (req, res) => {
 export const getAllUsersDesc = async (req, res) => {
   try {
     const result = await query(
-      "SELECT user_id, full_name, email, role, location FROM users ORDER BY created_at DESC;"
+      "SELECT user_id, full_name, email, role, location FROM users ORDER BY created_at DESC;",
     );
     res.status(HTTP_STATUS.OK).json(result.rows);
   } catch (error) {
@@ -56,7 +56,7 @@ export const getUserbyID = async (req, res) => {
     const { id } = req.user; // accessing user id based on decoded jwt token
     const result = await query(
       "SELECT user_id, full_name, email, role, location, created_at FROM users WHERE user_id = $1;",
-      [id]
+      [id],
     );
 
     if (result.rows.length === 0) {
@@ -82,8 +82,6 @@ export const getUserStatus = async (req, res) => {
   }
 };
 
-
-
 export const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -91,7 +89,7 @@ export const userLogin = async (req, res) => {
     console.log(email);
     const result = await query(
       "SELECT user_id, full_name, email, password_hash, role FROM users WHERE email = $1;",
-      [email]
+      [email],
     );
 
     if (result.rows.length === 0) {
@@ -114,7 +112,7 @@ export const userLogin = async (req, res) => {
     const token = jwt.sign(
       { id: user.user_id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "1d" },
     );
 
     res.cookie("token", token, {
@@ -158,7 +156,7 @@ export const updateUser = async (req, res) => {
     if (role && !ROLES.includes(role)) {
       return res.status(HTTP_STATUS.BAD_REQUEST).json({
         error: `Invalid role: '${role}'. Allowed roles are ${ROLES.join(
-          ", "
+          ", ",
         )}.`,
       });
     }
@@ -170,7 +168,7 @@ export const updateUser = async (req, res) => {
       role = COALESCE($4, role) 
       WHERE user_id = $1 
       RETURNING user_id, full_name, email, role, location, created_at;`,
-      [id, full_name, location, role]
+      [id, full_name, location, role],
     );
 
     if (result.rows.length === 0) {
@@ -191,7 +189,7 @@ export const deleteUser = async (req, res) => {
     const { id } = req.params;
     const result = await query(
       "DELETE FROM users WHERE user_id = $1 RETURNING user_id, email;",
-      [id]
+      [id],
     );
 
     if (result.rows.length === 0) {

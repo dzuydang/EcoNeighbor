@@ -20,7 +20,7 @@ export const createReport = async (req, res) => {
       `INSERT INTO reports (user_id, title, description, photo_url, latitude, longitude)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [id, title, description, photo_url, latitude, longitude]
+      [id, title, description, photo_url, latitude, longitude],
     );
 
     res.status(HTTP_STATUS.CREATED).json(result.rows[0]);
@@ -34,7 +34,7 @@ export const createReport = async (req, res) => {
 export const getAllReportsDesc = async (req, res) => {
   try {
     const result = await query(
-      "SELECT * FROM reports ORDER BY created_at DESC"
+      "SELECT * FROM reports ORDER BY created_at DESC",
     );
     res.status(HTTP_STATUS.OK).json(result.rows);
   } catch (error) {
@@ -85,7 +85,7 @@ export const updateReport = async (req, res) => {
         WHERE report_id = $6
         RETURNING *;
         `,
-      [title, description, photo_url, latitude, longitude, id]
+      [title, description, photo_url, latitude, longitude, id],
     );
 
     if (result.rows.length === 0) {
@@ -106,7 +106,7 @@ export const deleteReport = async (req, res) => {
     const { id } = req.params;
     const result = await query(
       "DELETE FROM reports WHERE report_id = $1 RETURNING *",
-      [id]
+      [id],
     );
 
     if (result.rows.length === 0) {

@@ -7,7 +7,7 @@ export async function sendAlertToUsers(report_id) {
   }
   const report_query_result = await query(
     "SELECT * FROM reports WHERE report_id = $1",
-    [report_id]
+    [report_id],
   );
 
   const user_query_email_result = await query("SELECT email FROM users;");
@@ -31,7 +31,7 @@ export async function sendAlertToUsers(report_id) {
 
   // sends emails in parallel
   await Promise.all(
-    user_email_list.map(({ email }) => sendEmail(email, subject, text))
+    user_email_list.map(({ email }) => sendEmail(email, subject, text)),
   );
 }
 
@@ -41,7 +41,7 @@ export async function sendAlertToGovernment(report_id) {
   }
   const report_query_result = await query(
     "SELECT * FROM reports WHERE report_id = $1",
-    [report_id]
+    [report_id],
   );
 
   const report = report_query_result.rows[0];
@@ -64,7 +64,7 @@ export async function sendAlertToGovernment(report_id) {
   await sendEmail(governmentEmail, subject, text);
   await query(
     `UPDATE reports SET forwarded_to_authority = TRUE WHERE report_id = $1 RETURNING *;`,
-    [report_id]
+    [report_id],
   );
 }
 

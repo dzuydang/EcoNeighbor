@@ -176,8 +176,8 @@ export default function AuthPage() {
                 {loading
                   ? "Please wait..."
                   : mode === "login"
-                  ? "Login"
-                  : "Create Account"}
+                    ? "Login"
+                    : "Create Account"}
               </button>
             </div>
           </form>

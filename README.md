@@ -1,20 +1,23 @@
 # 🌿 EcoNeighbor
-*CS 160 – Team 7*
+
+_CS 160 – Team 7_
 
 ---
 
 ## 🧩 Prerequisites
+
 Make sure you have the following installed before starting:
 
-- **Node.js:** 22.20.0 LTS  
-- **npm:** 10.9.3  
-- **PostgreSQL:** 14.19  
+- **Node.js:** 22.20.0 LTS
+- **npm:** 10.9.3
+- **PostgreSQL:** 14.19
 
 ---
 
 ## ⚙️ Setup
 
 ### 1) Install dependencies
+
 ```bash
 cd backend
 npm install
@@ -24,6 +27,7 @@ npm install
 ```
 
 ### 2) Create a .env file in the backend folder
+
 ```bash
 # Backend port:
 PORT=3000
@@ -37,7 +41,7 @@ PGPASSWORD=your_password
 
 # Nodemailer information
 EMAILUSER="your_email"
-EMAILPASS="your_email_password" 
+EMAILPASS="your_email_password"
 GOVEMAIL="gov_email"
 
 # cookies and jwt
@@ -46,6 +50,7 @@ JWT_SECRET=your_secret
 ```
 
 ### 3) Create a .env file in the frontend folder
+
 ```bash
 BASE_BACKEND_URL="http://localhost:3000"
 ```

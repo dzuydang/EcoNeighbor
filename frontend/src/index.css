@@ -1,5 +1,5 @@
 @import "tailwindcss";
 
 @theme {
-  --background-home: url("/src/assets/background.jpg")
+  --background-home: url("/src/assets/background.jpg");
 }

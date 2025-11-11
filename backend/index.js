@@ -27,7 +27,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
-  })
+  }),
 ); // manage cross-origin requests
 app.use(morgan("dev")); //logs requests to console
 app.use(express.json());

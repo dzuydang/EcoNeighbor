@@ -28,4 +28,3 @@ export async function checkLogin() {
   const response = await client.get("/user/status", { withCredentials: true });
   return response.status;
 }
-
