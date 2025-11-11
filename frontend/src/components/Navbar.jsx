@@ -46,7 +46,10 @@ const Navbar = () => {
         <Link to="/alerts" className="hover:text-green-600 transition-colors">
           Alerts
         </Link>
-        <Link to="/wastecenters" className="hover:text-green-600 transition-colors">
+        <Link
+          to="/wastecenters"
+          className="hover:text-green-600 transition-colors"
+        >
           Waste Centers
         </Link>
       </div>

@@ -4,7 +4,7 @@ import { HTTP_STATUS } from "../constants.js";
 export const getNumVerifiedReports = async (req, res) => {
   try {
     const result = await query(
-      "SELECT COUNT(*) FROM reports WHERE is_verified = TRUE;"
+      "SELECT COUNT(*) FROM reports WHERE is_verified = TRUE;",
     );
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -17,7 +17,7 @@ export const getNumVerifiedReports = async (req, res) => {
 export const getNumUnverifiedReports = async (req, res) => {
   try {
     const result = await query(
-      "SELECT COUNT(*) FROM reports WHERE is_verified = FALSE;"
+      "SELECT COUNT(*) FROM reports WHERE is_verified = FALSE;",
     );
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -29,9 +29,7 @@ export const getNumUnverifiedReports = async (req, res) => {
 
 export const getNumReports = async (req, res) => {
   try {
-    const result = await query(
-      "SELECT COUNT(*) FROM reports"
-    );
+    const result = await query("SELECT COUNT(*) FROM reports");
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
     const error_resp = `Error dataController getting number of reports: ${error}`;
@@ -43,7 +41,7 @@ export const getNumReports = async (req, res) => {
 export const getNumAdmin = async (req, res) => {
   try {
     const result = await query(
-      "SELECT COUNT(*) FROM users WHERE role = 'admin';"
+      "SELECT COUNT(*) FROM users WHERE role = 'admin';",
     );
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -56,7 +54,7 @@ export const getNumAdmin = async (req, res) => {
 export const getNumAuthority = async (req, res) => {
   try {
     const result = await query(
-      "SELECT COUNT(*) FROM users WHERE role = 'authority';"
+      "SELECT COUNT(*) FROM users WHERE role = 'authority';",
     );
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -69,7 +67,7 @@ export const getNumAuthority = async (req, res) => {
 export const getNumResident = async (req, res) => {
   try {
     const result = await query(
-      "SELECT COUNT(*) FROM users WHERE role = 'resident';"
+      "SELECT COUNT(*) FROM users WHERE role = 'resident';",
     );
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
@@ -81,9 +79,7 @@ export const getNumResident = async (req, res) => {
 
 export const getNumUsers = async (req, res) => {
   try {
-    const result = await query(
-      "SELECT COUNT(*) FROM users"
-    );
+    const result = await query("SELECT COUNT(*) FROM users");
     res.status(HTTP_STATUS.OK).json(result.rows[0]);
   } catch (error) {
     const error_resp = `Error dataController getting number of users: ${error}`;

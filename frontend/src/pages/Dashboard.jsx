@@ -76,7 +76,7 @@ const Dashboard = () => {
               User Role Distribution:
             </h2>
             <div className="flex-1 flex justify-center mt-2 overflow-visible">
-              <SimpleBarChart/>
+              <SimpleBarChart />
             </div>
             <p className="text-xl font-semibold mb-2 text-gray-700">
               Total Number Of Users: {numUsers}

@@ -19,7 +19,7 @@ export const verifyReport = async (req, res) => {
         WHERE report_id = $1
         RETURNING *;
         `,
-      [id, is_verified]
+      [id, is_verified],
     );
 
     if (result.rows.length === 0) {
@@ -51,7 +51,7 @@ export const verifyReport = async (req, res) => {
 export const getAllAlertsDesc = async (req, res) => {
   try {
     const result = await query(
-      "SELECT * FROM reports WHERE is_verified = TRUE ORDER BY created_at DESC;"
+      "SELECT * FROM reports WHERE is_verified = TRUE ORDER BY created_at DESC;",
     );
     res.status(HTTP_STATUS.OK).json(result.rows);
   } catch (error) {
