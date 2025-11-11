@@ -6,13 +6,14 @@ import {
   deleteComment,
   upvoteComment,
 } from "../controllers/commentController.js";
+import { verifyToken, requireRole } from "../utils/verify.js";
 
 const router = express.Router();
 
-router.post("/", createComment);
-router.get("/:report_id", getCommentsByReport);
-router.put("/:comment_id", updateComment);
-router.delete("/:comment_id", deleteComment);
-router.post("/:comment_id/upvote", upvoteComment);
+router.post("/", verifyToken, createComment);
+router.get("/:report_id", verifyToken, getCommentsByReport);
+router.put("/:comment_id", verifyToken, requireRole("admin"), updateComment);
+router.delete("/:comment_id", verifyToken, requireRole("admin"), deleteComment);
+router.post("/:comment_id/upvote", verifyToken, upvoteComment);
 
 export default router;
