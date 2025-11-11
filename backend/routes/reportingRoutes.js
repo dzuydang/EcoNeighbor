@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", verifyToken, getAllReportsDesc);
 router.get("/:id", verifyToken, getReport);
 router.post("/", verifyToken, createReport);
-router.put("/:id", verifyToken, updateReport);
-router.delete("/:id", verifyToken, deleteReport);
+router.put("/:id", verifyToken, requireRole("admin"), updateReport);
+router.delete("/:id", verifyToken, requireRole("admin"), deleteReport);
 
 export default router;
