@@ -18,6 +18,7 @@ const Reports = () => {
   const listRef = useRef(null);
   const itemRef = useRef(null);
   const createReportButton = useRef(null);
+  const PaginationButton = useRef(null);
   const [reportsPerPage, setReportsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [reportAuthor, setReportAuthor] = useState(null);
@@ -81,7 +82,8 @@ const Reports = () => {
       if (listRef.current && itemRef.current) {
         const containerHeight =
           listRef.current.clientHeight -
-          createReportButton.current.clientHeight * 2;
+          createReportButton.current.clientHeight -
+          PaginationButton.current.clientHeight;
         const itemHeight = itemRef.current.clientHeight + 8;
         const visibleCount = Math.floor(containerHeight / itemHeight);
         setReportsPerPage(visibleCount);
@@ -177,6 +179,7 @@ const Reports = () => {
                 </div>
               ))}
               <Pagination
+                ref={PaginationButton}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={(page) =>
@@ -201,14 +204,14 @@ const Reports = () => {
                               try {
                                 if (
                                   !window.confirm(
-                                    "Are you sure you want to unverify this report?",
+                                    "Are you sure you want to unverify this report?"
                                   )
                                 )
                                   return;
                                 setVerified(false);
                                 await verifyReport(
                                   selectedReport.report_id,
-                                  false,
+                                  false
                                 );
                                 window.location.reload();
                               } catch (err) {
@@ -225,14 +228,14 @@ const Reports = () => {
                               try {
                                 if (
                                   !window.confirm(
-                                    "Are you sure you want to verify this report?",
+                                    "Are you sure you want to verify this report?"
                                   )
                                 )
                                   return;
                                 setVerified(true);
                                 await verifyReport(
                                   selectedReport.report_id,
-                                  true,
+                                  true
                                 );
                                 window.location.reload();
                               } catch (err) {
@@ -256,7 +259,7 @@ const Reports = () => {
                           onClick={async () => {
                             if (
                               !window.confirm(
-                                "Are you sure you want to delete this report?",
+                                "Are you sure you want to delete this report?"
                               )
                             )
                               return;
