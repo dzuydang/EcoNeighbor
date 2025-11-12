@@ -105,7 +105,7 @@ const CustomActiveShapePieChart = ({ isAnimationActive = true }) => {
     <PieChart
       style={{
         width: "100%",
-        maxWidth: "600px",
+        maxWidth: "700px",
         maxHeight: "70vh",
         aspectRatio: 1,
       }}
@@ -123,7 +123,7 @@ const CustomActiveShapePieChart = ({ isAnimationActive = true }) => {
         cx="50%"
         cy="50%"
         innerRadius="40%"
-        outerRadius="80%"
+        outerRadius="60%"
         dataKey="value"
         isAnimationActive={isAnimationActive}
       >
