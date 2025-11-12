@@ -48,7 +48,6 @@ export async function editReport(
 }
 
 export async function deleteReport(report_id) {
-  console.log(report_id);
   const response = await client.delete(`/report/${report_id}`);
   return response.data;
 }
