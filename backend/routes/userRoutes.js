@@ -8,6 +8,7 @@ import {
   userLogout,
   deleteUser,
   updateUser,
+  getUserbyIDargID,
 } from "../controllers/userController.js";
 import { verifyToken, requireRole } from "../utils/verify.js";
 
@@ -15,6 +16,7 @@ const router = express.Router();
 
 router.get("/", verifyToken, requireRole("admin"), getAllUsersDesc);
 router.get("/get", verifyToken, getUserbyID);
+router.get("/get/:id", verifyToken, getUserbyIDargID);
 router.get("/status", verifyToken, getUserStatus);
 router.post("/login", userLogin);
 router.post("/logout", userLogout);

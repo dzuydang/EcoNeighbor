@@ -58,12 +58,12 @@ const Dashboard = () => {
     isLoggedIn && (
       <div className="h-screen flex flex-col bg-[image:var(--background-home)] bg-cover bg-center bg-no-repeat">
         <Navbar />
-        <div className="items-stretch flex-1 flex flex-col md:flex-row items-center gap-6 p-6 overflow-visible">
+        <div className="items-stretch flex-1 flex flex-col md:flex-row gap-6 p-6 overflow-hidden">
           <div className="flex-1 border border-green-100 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl shadow p-6 flex flex-col">
             <h2 className="text-xl font-semibold mb-2 text-gray-700">
               Verified vs Unverified Reports:
             </h2>
-            <div className="flex-1 flex justify-center mt-2 overflow-visible">
+            <div className="flex-1 flex justify-center mt-2">
               <CustomActiveShapePieChart />
             </div>
             <p className="text-xl font-semibold mb-2 text-gray-700">
@@ -75,7 +75,7 @@ const Dashboard = () => {
             <h2 className="text-xl font-semibold mb-2 text-gray-700">
               User Role Distribution:
             </h2>
-            <div className="flex-1 flex justify-center mt-2 overflow-visible">
+            <div className="flex-1 flex justify-center mt-2">
               <SimpleBarChart />
             </div>
             <p className="text-xl font-semibold mb-2 text-gray-700">
