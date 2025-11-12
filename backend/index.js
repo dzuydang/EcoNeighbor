@@ -37,7 +37,7 @@ const PORT = process.env.PORT || 3000;
 app.use("/alert", alertRoutes);
 app.use("/comment", commentRoutes);
 app.use("/data", dataRoutes);
-app.use("/reporting", reportingRoutes);
+app.use("/report", reportingRoutes);
 app.use("/user", userRoutes);
 app.use("/health", healthRoutes);
 

@@ -5,12 +5,7 @@ export const createReport = async (req, res) => {
     const { title, description, photo_url, latitude, longitude } = req.body;
     const { id } = req.user; // gets user_id from decoded jwt token
 
-    if (
-      !user_id ||
-      !title ||
-      latitude === undefined ||
-      longitude === undefined
-    ) {
+    if (!id || !title || latitude === undefined || longitude === undefined) {
       return res.status(HTTP_STATUS.BAD_REQUEST).json({
         error: "user_id, title, latitude, longitude cannot be empty",
       });

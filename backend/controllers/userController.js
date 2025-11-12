@@ -72,6 +72,27 @@ export const getUserbyID = async (req, res) => {
   }
 };
 
+export const getUserbyIDargID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await query(
+      "SELECT user_id, full_name, email, role, location, created_at FROM users WHERE user_id = $1;",
+      [id],
+    );
+
+    if (result.rows.length === 0) {
+      return res
+        .status(HTTP_STATUS.NOT_FOUND)
+        .json({ error: "No User with that id" });
+    }
+    res.status(HTTP_STATUS.OK).json(result.rows[0]);
+  } catch (error) {
+    const error_resp = `Error userController getting user: ${error}`;
+    console.error(error_resp, error);
+    res.status(HTTP_STATUS.INTERNAL_ERROR).json({ error: error_resp });
+  }
+};
+
 export const getUserStatus = async (req, res) => {
   try {
     res.status(HTTP_STATUS.OK).end();
