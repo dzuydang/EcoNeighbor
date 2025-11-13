@@ -5,10 +5,9 @@ export async function getComments(report_id) {
   return response.data;
 }
 
-export async function createComment(report_id, user_id, content) {
+export async function createComment(report_id, content) {
   const response = await client.post(`/comment/`, {
     report_id,
-    user_id,
     content,
   });
   return response.data;
