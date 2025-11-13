@@ -3,28 +3,43 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { checkLogin } from "../api/auth";
 import { getUserbyID, getUserbyIDargID } from "../api/user";
-import { getReports, verifyReport, deleteReport } from "../api/reports";
+import { getReports, verifyReport, deleteReport } from "../api/report";
 import { CheckCircle, XCircle } from "lucide-react";
 import Pagination from "../components/Pagination";
 import LeafletMap from "../components/LeafletMap";
 import PhotoURL from "../components/PhotoURL";
 import CreateReportWindow from "../components/CreateReportWindow";
 import EditReportWindow from "../components/EditReportWindow";
+import { getComments, deleteComment } from "../api/comment";
+import CreateCommentWindow from "../components/CreateCommentWindow";
+import EditCommentWindow from "../components/EditCommentWindow";
 
 const Reports = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [reports, setReports] = useState([]);
+  const [comments, setComments] = useState([]);
   const [selectedReport, setSelectedReport] = useState(null);
   const listRef = useRef(null);
   const itemRef = useRef(null);
   const createReportButton = useRef(null);
+  const commentsRef = useRef(null);
+  const PaginationButton = useRef(null);
   const [reportsPerPage, setReportsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [reportAuthor, setReportAuthor] = useState(null);
   const [verified, setVerified] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  console.log(comments);
+
   const nav = useNavigate();
+
+  // used for page scrolling for comment section
+  useEffect(() => {
+    if (commentsRef.current) {
+      commentsRef.current.scrollTop = commentsRef.current.scrollHeight;
+    }
+  }, [comments]);
 
   useEffect(() => {
     const verifyLogin = async () => {
@@ -64,8 +79,6 @@ const Reports = () => {
         setSelectedReport(data[0]);
       } catch (error) {
         console.error("Retrieving reports failed:", error);
-        setIsLoggedIn(false);
-        nav("/auth", { replace: true });
       }
     };
 
@@ -74,6 +87,21 @@ const Reports = () => {
     retrieveReports();
   }, [nav]);
 
+  useEffect(() => {
+    const retrieveComments = async () => {
+      try {
+        if (selectedReport) {
+          const data = await getComments(selectedReport.report_id);
+          setComments(data);
+        }
+      } catch (error) {
+        console.error("Retrieving comments failed:", error);
+      }
+    };
+
+    retrieveComments();
+  }, [selectedReport]);
+
   // needed this to make sure calcReportsPerPage ran after reports listRef and itemRef were not null.
   // reports needs to be retrieved for that to happen.
   useEffect(() => {
@@ -81,7 +109,8 @@ const Reports = () => {
       if (listRef.current && itemRef.current) {
         const containerHeight =
           listRef.current.clientHeight -
-          createReportButton.current.clientHeight * 2;
+          createReportButton.current.clientHeight -
+          PaginationButton.current.clientHeight;
         const itemHeight = itemRef.current.clientHeight + 8;
         const visibleCount = Math.floor(containerHeight / itemHeight);
         setReportsPerPage(visibleCount);
@@ -177,6 +206,7 @@ const Reports = () => {
                 </div>
               ))}
               <Pagination
+                ref={PaginationButton}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={(page) =>
@@ -201,14 +231,14 @@ const Reports = () => {
                               try {
                                 if (
                                   !window.confirm(
-                                    "Are you sure you want to unverify this report?",
+                                    "Are you sure you want to unverify this report?"
                                   )
                                 )
                                   return;
                                 setVerified(false);
                                 await verifyReport(
                                   selectedReport.report_id,
-                                  false,
+                                  false
                                 );
                                 window.location.reload();
                               } catch (err) {
@@ -225,14 +255,14 @@ const Reports = () => {
                               try {
                                 if (
                                   !window.confirm(
-                                    "Are you sure you want to verify this report?",
+                                    "Are you sure you want to verify this report?"
                                   )
                                 )
                                   return;
                                 setVerified(true);
                                 await verifyReport(
                                   selectedReport.report_id,
-                                  true,
+                                  true
                                 );
                                 window.location.reload();
                               } catch (err) {
@@ -256,7 +286,7 @@ const Reports = () => {
                           onClick={async () => {
                             if (
                               !window.confirm(
-                                "Are you sure you want to delete this report?",
+                                "Are you sure you want to delete this report?"
                               )
                             )
                               return;
@@ -313,11 +343,85 @@ const Reports = () => {
                       />
                     </div>
                   </div>
-                  {reportAuthor && (
-                    <p className="text-gray-700 mt-2">
-                      By {reportAuthor.full_name}
-                    </p>
-                  )}
+                  <div className="flex justify-between items-center mt-4">
+                    {reportAuthor && (
+                      <p className="text-gray-700">
+                        By {reportAuthor.full_name}
+                      </p>
+                    )}
+                    <button
+                      onClick={async () =>
+                        await CreateCommentWindow(selectedReport.report_id)
+                      }
+                      className="px-3 py-1 text-sm rounded-md bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+                    >
+                      Create Comment
+                    </button>
+                  </div>
+
+                  <div
+                    ref={commentsRef}
+                    className="overflow-y-auto relative h-64 border border-gray-200 rounded-xl bg-white mt-4"
+                  >
+                    {comments.length > 0 ? (
+                      <div className="overflow-y-auto p-4 shadow-sm">
+                        {comments.map((c, i) => (
+                          <div key={i} className="mb-3 last:mb-0">
+                            <div className="flex items-center justify-between">
+                              <p className="font-semibold text-gray-800">
+                                {c.content}
+                              </p>
+                              {isAdmin && (
+                                <div className="flex gap-2 justify-end">
+                                  <button
+                                    onClick={async () =>
+                                      await EditCommentWindow(
+                                        c.comment_id,
+                                        c.content
+                                      )
+                                    }
+                                    className="px-3 py-1 text-sm rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200"
+                                  >
+                                    Edit
+                                  </button>
+                                  <button
+                                    onClick={async () => {
+                                      if (
+                                        !window.confirm(
+                                          "Are you sure you want to delete this comment?"
+                                        )
+                                      )
+                                        return;
+                                      try {
+                                        await deleteComment(c.comment_id);
+                                        window.location.reload();
+                                      } catch (err) {
+                                        console.error("Delete failed:", err);
+                                      }
+                                    }}
+                                    className="px-3 py-1 text-sm rounded-md bg-red-100 text-red-700 hover:bg-red-200"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                              <p className="text-gray-600">
+                                By {c.author_name}
+                              </p>
+                              {new Date(c.created_at).toLocaleDateString()}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex text-4xl absolute left-1/2 -translate-x-1/2 text-gray-500 italic justify-center items-center h-full">
+                        No Comments
+                      </div>
+                    )}
+                  </div>
                 </>
               ) : (
                 <p>Select a report to view details</p>

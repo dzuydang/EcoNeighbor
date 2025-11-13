@@ -1,5 +1,5 @@
 import React from "react";
-import { editReport } from "../api/reports";
+import { editReport } from "../api/report";
 
 const EditReportWindow = async ({
   report_id,

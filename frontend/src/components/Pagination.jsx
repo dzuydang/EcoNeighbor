@@ -1,8 +1,8 @@
-import React from "react";
+import React, {forwardRef} from "react";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = forwardRef(({ currentPage, totalPages, onPageChange }, ref) => {
   return (
-    <div className="flex flex-1 justify-between">
+    <div ref={ref} className="flex flex-1 justify-between">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -19,6 +19,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       </button>
     </div>
   );
-};
+});
 
 export default Pagination;

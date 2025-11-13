@@ -1,5 +1,5 @@
 import React from "react";
-import { createReport } from "../api/reports";
+import { createReport } from "../api/report";
 
 const CreateReportWindow = async () => {
   try {
