@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS waste_centers (
     contact_info VARCHAR(100),
     latitude DECIMAL(9,6),
     longitude DECIMAL(9,6),
-    verified BOOLEAN DEFAULT TRUE
+    verified BOOLEAN DEFAULT TRUE, 
+    about TEXT
 );
 
 -- =========================================
