@@ -25,13 +25,10 @@ const Alerts = () => {
     setLoadingRec((prev) => ({ ...prev, [id]: true }));
 
     try {
-      const res = await fetch(
-        `http://localhost:3000/alert/${id}/recommend`,
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`http://localhost:3000/alert/${id}/recommend`, {
+        method: "POST",
+        credentials: "include",
+      });
 
       const data = await res.json();
 
@@ -39,7 +36,6 @@ const Alerts = () => {
         ...prev,
         [id]: data.recommendation,
       }));
-
     } catch (err) {
       console.error("Recommendation error:", err);
     } finally {
@@ -111,9 +107,7 @@ const Alerts = () => {
 
                 <div className="mt-2 text-xs text-gray-500">
                   Posted:{" "}
-                  {a.created_at
-                    ? new Date(a.created_at).toLocaleString()
-                    : "—"}
+                  {a.created_at ? new Date(a.created_at).toLocaleString() : "—"}
                 </div>
 
                 {a.location && (
@@ -126,9 +120,10 @@ const Alerts = () => {
                   onClick={() => handleRecommendAction(a)}
                   disabled={loadingRec[a.report_id]}
                   className={`mt-3 px-3 py-1.5 text-sm rounded-lg transition
-                    ${loadingRec[a.report_id]
-                      ? "bg-gray-400 text-white cursor-not-allowed"
-                      : "bg-blue-600 text-white hover:bg-blue-700 active:scale-[.98]"
+                    ${
+                      loadingRec[a.report_id]
+                        ? "bg-gray-400 text-white cursor-not-allowed"
+                        : "bg-blue-600 text-white hover:bg-blue-700 active:scale-[.98]"
                     }`}
                 >
                   {loadingRec[a.report_id] ? (

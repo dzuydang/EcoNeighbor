@@ -231,14 +231,14 @@ const Reports = () => {
                               try {
                                 if (
                                   !window.confirm(
-                                    "Are you sure you want to unverify this report?"
+                                    "Are you sure you want to unverify this report?",
                                   )
                                 )
                                   return;
                                 setVerified(false);
                                 await verifyReport(
                                   selectedReport.report_id,
-                                  false
+                                  false,
                                 );
                                 window.location.reload();
                               } catch (err) {
@@ -255,14 +255,14 @@ const Reports = () => {
                               try {
                                 if (
                                   !window.confirm(
-                                    "Are you sure you want to verify this report?"
+                                    "Are you sure you want to verify this report?",
                                   )
                                 )
                                   return;
                                 setVerified(true);
                                 await verifyReport(
                                   selectedReport.report_id,
-                                  true
+                                  true,
                                 );
                                 window.location.reload();
                               } catch (err) {
@@ -286,7 +286,7 @@ const Reports = () => {
                           onClick={async () => {
                             if (
                               !window.confirm(
-                                "Are you sure you want to delete this report?"
+                                "Are you sure you want to delete this report?",
                               )
                             )
                               return;
@@ -377,7 +377,7 @@ const Reports = () => {
                                     onClick={async () =>
                                       await EditCommentWindow(
                                         c.comment_id,
-                                        c.content
+                                        c.content,
                                       )
                                     }
                                     className="px-3 py-1 text-sm rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200"
@@ -388,7 +388,7 @@ const Reports = () => {
                                     onClick={async () => {
                                       if (
                                         !window.confirm(
-                                          "Are you sure you want to delete this comment?"
+                                          "Are you sure you want to delete this comment?",
                                         )
                                       )
                                         return;

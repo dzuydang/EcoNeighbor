@@ -15,7 +15,7 @@ export const createComment = async (req, res) => {
       `INSERT INTO comments (report_id, user_id, content)
        VALUES ($1, $2, $3)
        RETURNING *`,
-      [report_id, id, content]
+      [report_id, id, content],
     );
 
     res.status(201).json(result.rows[0]);
@@ -34,7 +34,7 @@ export const getCommentsByReport = async (req, res) => {
        JOIN users u ON c.user_id = u.user_id
        WHERE c.report_id = $1
        ORDER BY c.created_at DESC`,
-      [report_id]
+      [report_id],
     );
 
     res.status(200).json(result.rows);
@@ -58,7 +58,7 @@ export const updateComment = async (req, res) => {
        SET content = $1
        WHERE comment_id = $2
        RETURNING *`,
-      [content, comment_id]
+      [content, comment_id],
     );
 
     if (result.rows.length === 0) {
@@ -77,7 +77,7 @@ export const deleteComment = async (req, res) => {
     const { comment_id } = req.params;
     const result = await query(
       "DELETE FROM comments WHERE comment_id = $1 RETURNING *",
-      [comment_id]
+      [comment_id],
     );
 
     if (result.rows.length === 0) {
@@ -100,7 +100,7 @@ export const upvoteComment = async (req, res) => {
        SET upvotes = upvotes + 1
        WHERE comment_id = $1
        RETURNING *`,
-      [comment_id]
+      [comment_id],
     );
 
     if (result.rows.length === 0) {

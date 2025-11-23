@@ -21,7 +21,7 @@ router.post("/:id/recommend", verifyToken, async (req, res) => {
     // 1. Get the report from DB
     const { rows } = await query(
       "SELECT title, description FROM reports WHERE report_id = $1",
-      [id]
+      [id],
     );
 
     if (rows.length === 0) {
@@ -38,7 +38,6 @@ router.post("/:id/recommend", verifyToken, async (req, res) => {
       report_id: id,
       recommendation: aiAdvice,
     });
-
   } catch (error) {
     console.error("AI recommendation error:", error);
     res.status(500).json({ error: "Failed to generate recommendation" });
@@ -46,4 +45,3 @@ router.post("/:id/recommend", verifyToken, async (req, res) => {
 });
 
 export default router;
-

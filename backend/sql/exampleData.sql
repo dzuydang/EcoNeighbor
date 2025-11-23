@@ -24,13 +24,53 @@ VALUES
 (4, 'Road Maintenance', 'Notify transportation authorities to fill and resurface the pothole.'),
 (5, 'Increase Surveillance', 'Install cameras behind Pine Plaza to deter illegal dumping.');
 
-INSERT INTO waste_centers (name, address, material_types, contact_info, latitude, longitude, verified)
+INSERT INTO waste_centers 
+(name, address, material_types, contact_info, latitude, longitude, verified, about)
 VALUES
-('Springfield Recycling Center', '123 Greenway Blvd, Springfield', 'Plastic, Paper, Glass, Metal', '555-1234', 37.7741, -122.4196, TRUE),
-('EcoDrop Station', '45 Elm St, Springfield', 'Electronics, Batteries', '555-5678', 37.7768, -122.4185, TRUE),
-('City Compost Hub', '78 Garden Rd, Springfield', 'Organic Waste, Yard Waste', '555-9012', 37.7725, -122.4203, TRUE),
-('Hazard Disposal Depot', '12 Safety Ln, Springfield', 'Chemicals, Paint, Oil', '555-3456', 37.7752, -122.4171, TRUE),
-('Pine Plaza Recycling Point', '88 Pine Rd, Springfield', 'Plastic, Cardboard', '555-7890', 37.7783, -122.4162, TRUE);
+('Springfield Recycling Center', 
+ '123 Greenway Blvd, Springfield', 
+ 'Plastic, Paper, Glass, Metal', 
+ '555-1234', 
+ 37.7741, 
+ -122.4196, 
+ TRUE, 
+ 'A full-service recycling facility handling common household recyclables such as plastic, paper, glass, and metal.'),
+
+('EcoDrop Station', 
+ '45 Elm St, Springfield', 
+ 'Electronics, Batteries', 
+ '555-5678', 
+ 37.7768, 
+ -122.4185, 
+ TRUE, 
+ 'Specializes in safe disposal and recycling of electronic waste and batteries.'),
+
+('City Compost Hub', 
+ '78 Garden Rd, Springfield', 
+ 'Organic Waste, Yard Waste', 
+ '555-9012', 
+ 37.7725, 
+ -122.4203, 
+ TRUE, 
+ 'Community composting site accepting organic and yard waste for local compost production.'),
+
+('Hazard Disposal Depot', 
+ '12 Safety Ln, Springfield', 
+ 'Chemicals, Paint, Oil', 
+ '555-3456', 
+ 37.7752, 
+ -122.4171, 
+ TRUE, 
+ 'Dedicated to the safe disposal of household hazardous materials such as paint, chemicals, and oils.'),
+
+('Pine Plaza Recycling Point', 
+ '88 Pine Rd, Springfield', 
+ 'Plastic, Cardboard', 
+ '555-7890', 
+ 37.7783, 
+ -122.4162, 
+ TRUE, 
+ 'Convenient drop-off location for recyclable plastic and cardboard materials.');
 
 INSERT INTO comments (report_id, user_id, content, upvotes, flagged)
 VALUES

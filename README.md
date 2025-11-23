@@ -59,6 +59,7 @@ BASE_BACKEND_URL="http://localhost:3000"
 ```
 
 ### 4) AI Recommendation Feature Set Up (Gemini API)
+
 EcoNeighbor uses Google Gemini to generate automated recommended actions for community reports.
 
 To use the AI feature, each developer must create their own API key.
@@ -74,6 +75,7 @@ School/work accounts may restrict model access
 Click “Create API Key”
 
 Copy the key and paste into your /backend/.env:
+
 ```bash
 GEMINI_API_KEY=your_key_here
 ```
@@ -81,6 +83,7 @@ GEMINI_API_KEY=your_key_here
 2. Model Requirements
 
 Your API key MUST support the following Gemini 2.x model:
+
 - models/gemini-2.5-flash
 
 3. No SDK Needed

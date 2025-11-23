@@ -14,6 +14,7 @@ import dataRoutes from "./routes/dataRoutes.js";
 import reportingRoutes from "./routes/reportingRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import healthRoutes from "./routes/healthRoutes.js";
+import wasteCentersRoutes from "./routes/verifiedWasteRoutes.js";
 import { query } from "./config/db.js";
 
 dotenv.config();
@@ -40,6 +41,7 @@ app.use("/data", dataRoutes);
 app.use("/report", reportingRoutes);
 app.use("/user", userRoutes);
 app.use("/health", healthRoutes);
+app.use("/wastecenter", wasteCentersRoutes);
 
 const fullfilename = fileURLToPath(import.meta.url);
 const fulldirname = path.dirname(fullfilename);
