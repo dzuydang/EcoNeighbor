@@ -28,17 +28,6 @@ CREATE TABLE IF NOT EXISTS reports (
 );
 
 -- =========================================
--- RECOMMENDATIONS (Feature 4)
--- =========================================
-CREATE TABLE IF NOT EXISTS recommendations (
-    rec_id SERIAL PRIMARY KEY,
-    report_id INT REFERENCES reports(report_id) ON DELETE CASCADE,
-    title VARCHAR(100),
-    advice TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- =========================================
 -- VERIFIED WASTE MANAGEMENT CENTERS (Feature 7)
 -- =========================================
 CREATE TABLE IF NOT EXISTS waste_centers (

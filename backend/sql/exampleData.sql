@@ -2,27 +2,25 @@
 
 INSERT INTO users (full_name, email, password_hash, role, location)
 VALUES
-('Alice Johnson', 'alice@example.com', 'hashedpassword1', 'resident', 'Maple Street, Springfield'),
-('Bob Smith', 'bob@example.com', 'hashedpassword2', 'authority', 'Downtown Office, Springfield'),
-('Carol Lee', 'carol@example.com', 'hashedpassword3', 'admin', 'City Hall, Springfield'),
-('David Nguyen', 'david@example.com', 'hashedpassword4', 'resident', 'Oak Avenue, Springfield'),
-('Ella Martinez', 'ella@example.com', 'hashedpassword5', 'resident', 'Pine Road, Springfield');
+('Jyothi Shankar', 'jyothi.shankar@sjsu.edu', 'hashedpassword1', 'resident', 'Maple Street, Springfield'),
+('Dzuy Dang', 'dzuy.dang@sjsu.edu', 'hashedpassword2', 'authority', 'Downtown Office, Springfield'),
+('Hayden Tu', 'hayden.tu@sjsu.edu', 'hashedpassword3', 'admin', 'City Hall, Springfield');
 
 INSERT INTO reports (user_id, title, description, photo_url, latitude, longitude, is_verified, forwarded_to_authority)
 VALUES
-(1, 'Overflowing Garbage Bin', 'Trash bin near Maple Park is full and attracting pests.', 'https://example.com/photos/bin1.jpg', 37.7749, -122.4194, FALSE, FALSE),
-(2, 'Broken Streetlight', 'Streetlight near Main St. and 3rd Ave has been out for a week.', 'https://example.com/photos/streetlight.jpg', 37.7755, -122.4180, TRUE, TRUE),
+(1, 'Overflowing Garbage Bin', 'Trash bin near Maple Park is full and attracting pests.', '/images/trash-can.jpg', 37.7749, -122.4194, FALSE, FALSE),
+(2, 'Broken Streetlight', 'Streetlight near Main St. and 3rd Ave has been out for a week.', '/images/faulty-streetlights.jpg', 37.7755, -122.4180, TRUE, TRUE),
 (1, 'Graffiti on Wall', 'Graffiti found on the north wall of the community center.', NULL, 37.7730, -122.4212, FALSE, FALSE),
-(4, 'Pothole on Oak Ave', 'Large pothole causing traffic slowdown near Oak and 5th.', 'https://example.com/photos/pothole.jpg', 37.7762, -122.4178, TRUE, FALSE),
-(5, 'Illegal Dumping', 'Someone dumped old furniture behind Pine Plaza last night.', NULL, 37.7780, -122.4165, FALSE, TRUE);
-
-INSERT INTO recommendations (report_id, title, advice)
-VALUES
-(1, 'Schedule Regular Waste Collection', 'Coordinate with the sanitation department to increase trash pickup frequency.'),
-(2, 'Repair Streetlight', 'Submit a maintenance ticket to the public works team for immediate repair.'),
-(3, 'Community Cleanup', 'Organize a weekend cleanup event and supply paint to cover graffiti.'),
-(4, 'Road Maintenance', 'Notify transportation authorities to fill and resurface the pothole.'),
-(5, 'Increase Surveillance', 'Install cameras behind Pine Plaza to deter illegal dumping.');
+(2, 'Pothole on Oak Ave', 'Large pothole causing traffic slowdown near Oak and 5th.', '/images/potholes.jpg', 37.7762, -122.4178, FALSE, FALSE),
+(3, 'Illegal Dumping', 'Someone dumped old furniture behind Pine Plaza last night.', NULL, 37.7780, -122.4165, FALSE, FALSE),
+(3, 'Leaking Fire Hydrant', 'Water is leaking steadily from the base of the hydrant on Elm St.', '/images/firehydrant.png', 37.7724, -122.4201, FALSE, FALSE),
+(2, 'Damaged Bench', 'Park bench near the playground has a broken wooden plank.', NULL, 37.7718, -122.4220, FALSE, FALSE),
+(1, 'Blocked Drain', 'Storm drain on 9th Ave is clogged with leaves and debris.', '/images/blocked_drains.png', 37.7743, -122.4187, FALSE, FALSE),
+(2, 'Fallen Tree Branch', 'Large branch fell across the sidewalk after strong winds.', '/images/tree_branch.png', 37.7758, -122.4199, TRUE, TRUE),
+(3, 'Abandoned Vehicle', 'A car has been left unmoved for over a week near Cedar St.', NULL, 37.7765, -122.4215, FALSE, FALSE),
+(2, 'Noise Complaint', 'Loud machinery noise coming from construction site late at night.', NULL, 37.7771, -122.4173, FALSE, FALSE),
+(1, 'Vandalized Bus Stop', 'Glass panel shattered at the bus stop near 12th and Market.', '/images/bus_shelter.png', 37.7739, -122.4158, FALSE, FALSE),
+(2, 'Water Main Break', 'Significant water pooling on the street due to pipe burst.', NULL, 37.7727, -122.4169, TRUE, TRUE);
 
 INSERT INTO waste_centers 
 (name, address, material_types, contact_info, latitude, longitude, verified, about)
@@ -75,7 +73,7 @@ VALUES
 INSERT INTO comments (report_id, user_id, content, upvotes, flagged)
 VALUES
 (1, 2, 'Thanks for reporting this! We will send a cleaning crew.', 5, FALSE),
-(1, 4, 'I noticed this too near the park entrance.', 3, FALSE),
+(1, 3, 'I noticed this too near the park entrance.', 3, FALSE),
 (2, 1, 'This light has been out for over a week. Dangerous for pedestrians!', 4, FALSE),
-(3, 5, 'Maybe we can organize a mural project to replace the graffiti.', 2, FALSE),
+(3, 2, 'Maybe we can organize a mural project to replace the graffiti.', 2, FALSE),
 (5, 3, 'Forwarded to waste management — thanks for the heads up.', 7, FALSE);
