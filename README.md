@@ -16,11 +16,13 @@ Make sure you have the following installed before starting:
 
 ## ⚙️ Setup
 
-### 1) Install dependencies
+### 1) Install dependencies and input example data
+2. Load the sql example data into the database:
 
 ```bash
 cd backend
 npm install
+sudo -u postgres psql -d EcoNeighbordb -f /tmp/exampleData.sql 
 cd ..
 cd frontend
 npm install
